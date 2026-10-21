@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rúbrica de Evaluación — EOI · Nivel A2 · Francés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ========== 1. VARIABLES Y BASE ========== */
+:root{
+  --bg:#f5f2ec; --surface:#ffffff; --surface2:#faf8f4; --border:#e0d9cf;
+  --green:#1a4d3a; --gold:#c8873a; --green2:#2e6f56;
+  --text:#1c1a17; --text2:#6b6357; --error:#c0392b;
+  --radius:4px; --shadow:0 1px 3px rgba(28,26,23,.08),0 2px 8px rgba(28,26,23,.05);
+  --font-title:'Syne','Trebuchet MS',Arial,sans-serif;
+  --font-body:'DM Sans','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:var(--font-title);margin:0}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ========== 2. CABECERA ========== */
+.site-header{background:var(--green);color:#fff;position:relative;overflow:hidden;padding:36px 20px 32px}
+.site-header::after{content:"";position:absolute;top:-90px;right:-70px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.07)}
+.header-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+.tag{display:inline-block;background:var(--gold);color:#fff;font-family:var(--font-title);font-weight:700;font-size:12px;letter-spacing:.08em;padding:4px 10px;border-radius:var(--radius);margin-bottom:12px}
+.site-header h1{font-size:clamp(26px,5vw,38px);font-weight:800;line-height:1.1}
+.subtitle{font-style:italic;font-size:18px;margin:6px 0 4px;color:#f0d9b5}
+.header-sub{opacity:.8;font-size:14px;margin:0}
+.header-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{font-family:var(--font-title);font-weight:700;font-size:14px;padding:10px 18px;border-radius:var(--radius);cursor:pointer;border:2px solid var(--gold);transition:filter .15s}
+.btn-primary{background:var(--gold);color:#fff}
+.btn-outline{background:transparent;color:#fff}
+.btn:hover{filter:brightness(1.1)}
+
+/* ========== 3. CONTENEDOR Y TARJETAS ========== */
+main{max-width:860px;margin:0 auto;padding:24px 16px 40px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:22px}
+.card > h2{font-size:18px;color:var(--green);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--gold)}
+.card > h2 .code{color:var(--gold)}
+
+/* ========== 4. FORMULARIO ========== */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--text2);margin-bottom:5px}
+.field input,.field select,textarea{width:100%;font-family:var(--font-body);font-size:15px;color:var(--text);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;transition:border-color .15s,box-shadow .15s,background .15s}
+.field input:focus,.field select:focus,textarea:focus{border-color:var(--green2);background:#fff;box-shadow:0 0 0 3px rgba(46,111,86,.18);outline:none}
+textarea{min-height:80px;resize:vertical}
+
+/* ========== 5. TABLAS DE BLOQUES ========== */
+.table-wrap{overflow-x:auto;max-width:100%}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead th{background:var(--green);color:#fff;font-family:var(--font-title);font-size:13px;text-align:left;padding:10px 12px}
+thead th.num,td.num{text-align:center;width:130px}
+tbody td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tbody tr:hover{background:var(--surface2)}
+.crit-name{font-weight:700;color:var(--green)}
+.crit-desc{font-size:13px;color:var(--text2)}
+.score-input{width:90px;text-align:center;font-family:var(--font-title);font-weight:700;font-size:16px;border:1px solid var(--border);border-radius:var(--radius);padding:7px;background:var(--surface2);color:var(--text)}
+.score-input:focus{border-color:var(--green2);background:#fff;box-shadow:0 0 0 3px rgba(46,111,86,.18);outline:none}
+.score-input.invalid{border:2px solid var(--error);color:var(--error);background:#fdf0ee}
+.err-msg{display:none;color:var(--error);font-size:12px;font-weight:700;margin-top:4px}
+.err-msg.show{display:block}
+tfoot td{padding:12px;background:var(--surface2);font-weight:700;border-top:2px solid var(--green)}
+.block-total{font-family:var(--font-title);font-size:20px;color:var(--gold);text-align:center}
+.obs{margin-top:16px}
+.obs label{display:block;font-size:13px;font-weight:700;color:var(--text2);margin-bottom:5px}
+
+/* ========== 6. PANEL DE CALIFICACIÓN ========== */
+.summary{background:var(--green);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:22px}
+.summary h2{font-size:16px;margin-bottom:14px;color:#f0d9b5}
+.summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+.sum-item{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:10px;text-align:center}
+.sum-item .lbl{font-size:11px;opacity:.85;min-height:30px;line-height:1.25}
+.sum-item .lbl b{font-family:var(--font-title);font-size:13px;display:block}
+.sum-item .val{font-family:var(--font-title);font-weight:700;font-size:22px;color:var(--gold)}
+.sum-item .max{font-size:11px;opacity:.7}
+.final-box{border-top:1px solid rgba(255,255,255,.25);padding-top:16px;text-align:center}
+.final-box .lbl{font-size:13px;opacity:.85}
+.final-score{font-family:var(--font-title);font-weight:800;font-size:clamp(44px,10vw,64px);color:var(--gold);line-height:1.1}
+.final-verdict{font-family:var(--font-title);font-weight:700;font-size:20px;letter-spacing:.06em}
+.final-verdict.apto{color:#9fe0bd}
+.final-verdict.noapto{color:#ffb3a8}
+.final-label{display:inline-block;margin-top:8px;background:var(--gold);color:#fff;font-weight:700;font-size:13px;padding:3px 12px;border-radius:var(--radius)}
+.final-note{font-size:12px;opacity:.75;margin-top:10px}
+
+/* ========== 7. FIRMA Y PIE ========== */
+.signature{display:flex;justify-content:flex-end;margin:40px 0 10px}
+.signature div{width:260px;border-top:1.5px solid var(--text);text-align:center;padding-top:6px;font-size:14px;color:var(--text2)}
+footer{background:var(--green);color:#fff;text-align:center;font-size:12px;opacity:.9;padding:16px}
+
+/* ========== 8. RESPONSIVE ========== */
+@media (max-width:700px){.summary-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){
+  .form-grid{grid-template-columns:1fr}
+  .card{padding:16px}
+  .signature div{width:100%}
+}
+
+/* ========== 9. IMPRESIÓN ========== */
+@media print{
+  @page{size:A4;margin:14mm}
+  body{background:#fff;font-size:11pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .header-actions,footer{display:none!important}
+  .site-header{padding:16px 20px}
+  .card,.summary,.signature,.table-wrap{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
+  table{min-width:0}
+  .table-wrap{overflow:visible}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  .field input,.field select,textarea,.score-input{border:1px solid #888!important;background:#fff!important}
+  textarea{min-height:60px;resize:none}
+  .card{margin-bottom:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== CABECERA ========== -->
+<header class="site-header">
+  <div class="header-inner">
+    <span class="tag">EOI GIJON_FRANCÉS</span>
+    <h1>Rúbrica de Evaluación A2</h1>
+    <p class="subtitle">A2 Français</p>
+    <p class="header-sub">Criterios de evaluación por actividades de lengua · Resultados</p>
+    <div class="header-actions">
+      <button type="button" class="btn btn-outline" id="btnReset">↺ Restablecer</button>
+      <button type="button" class="btn btn-primary" id="btnPrint">🖨 Imprimir / PDF</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ========== FORMULARIO DE IDENTIFICACIÓN ========== -->
+  <section class="card" aria-labelledby="h-datos">
+    <h2 id="h-datos">Datos del alumno/a y evaluación</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label for="alumno">Apellidos y nombre del alumno/a</label>
+        <input type="text" id="alumno" placeholder="Apellidos, Nombre" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="docente">Docente evaluador/a</label>
+        <input type="text" id="docente" placeholder="Nombre del/la docente" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="convocatoria">Convocatoria</label>
+        <select id="convocatoria">
+          <option value="">— Seleccionar —</option>
+          <option value="Ordinaria">Ordinaria</option>
+          <option value="Extraordinaria">Extraordinaria</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PANEL DE CALIFICACIÓN AUTOMÁTICA ========== -->
+  <section class="summary" aria-live="polite" aria-labelledby="h-resumen">
+    <h2 id="h-resumen">Calificación automática</h2>
+    <div class="summary-grid" id="summaryGrid"><!-- se genera con JS --></div>
+    <div class="final-box">
+      <div class="lbl">Calificación final (media de los 5 bloques)</div>
+      <div class="final-score" id="finalScore">0,00</div>
+      <div class="final-verdict noapto" id="finalVerdict">NO APTO</div>
+      <span class="final-label" id="finalLabel">Sin calificar</span>
+      <div class="final-note">Máximo: APTO · Para ser APTO, cada bloque debe alcanzar al menos 5,00 sobre 10,00. La calificación final se calcula automáticamente.</div>
+    </div>
+  </section>
+
+  <!-- ========== BLOQUES DE EVALUACIÓN (generados con JS) ========== -->
+  <div id="blocksContainer"></div>
+
+  <!-- ========== VALORACIÓN GLOBAL ========== -->
+  <section class="card" aria-labelledby="h-global">
+    <h2 id="h-global">Valoración global</h2>
+    <div class="field">
+      <label for="valoracionGlobal">Observaciones generales sobre el desempeño del alumno/a</label>
+      <textarea id="valoracionGlobal" placeholder="Valoración global…"></textarea>
+    </div>
+  </section>
+
+  <!-- ========== FIRMA ========== -->
+  <div class="signature"><div>Firma del/la evaluador/a</div></div>
+</main>
+
+<!-- ========== PIE DE PÁGINA ========== -->
+<footer>EOI GIJON_FRANCÉS - Rúbrica de Evaluación A2 - A2 Français</footer>
+
+<script>
+/* ========== A. DATOS DE LOS BLOQUES Y CRITERIOS ========== */
+const BLOCKS = [
+  { id:1, code:'CTO',  name:'Comprensión de textos orales', criteria:[
+    ['Comprensión global','Entiende la idea general y el propósito de los textos orales.'],
+    ['Comprensión de información específica','Identifica datos, detalles y información concreta relevante.'],
+    ['Identificación de intención y registro','Reconoce la actitud, la intención comunicativa y el registro de los hablantes.'] ]},
+  { id:2, code:'CTE',  name:'Comprensión de textos escritos', criteria:[
+    ['Comprensión global','Entiende la idea general y la finalidad de los textos escritos.'],
+    ['Comprensión de información específica','Localiza y comprende datos y detalles relevantes.'],
+    ['Léxico y estructuras en contexto','Deduce el significado de palabras y estructuras a partir del contexto.'] ]},
+  { id:3, code:'PCTO', name:'Producción y Coproducción de textos orales', criteria:[
+    ['Adecuación y coherencia','Cumple la tarea con ideas organizadas y adecuadas a la situación.'],
+    ['Léxico y morfosintaxis','Corrección y variedad del vocabulario y de las estructuras gramaticales.'],
+    ['Fluidez, pronunciación e interacción','Ritmo, claridad de pronunciación y capacidad de interactuar con el interlocutor.'] ]},
+  { id:4, code:'PTE',  name:'Producción de textos escritos', criteria:[
+    ['Adecuación y coherencia','Cumple la tarea, con ideas organizadas y conectores básicos.'],
+    ['Léxico y morfosintaxis','Corrección y variedad del vocabulario y de las estructuras gramaticales.'],
+    ['Ortografía, puntuación y presentación','Ortografía, puntuación, formato y claridad del texto.'] ]},
+  { id:5, code:'MED',  name:'Mediación', criteria:[
+    ['Transmisión de información relevante','Selecciona y transmite correctamente las ideas esenciales.'],
+    ['Adecuación y reformulación','Reformula con claridad y adapta el mensaje al destinatario.'],
+    ['Estrategias de mediación y cooperación','Facilita la comunicación, aclara y colabora con las personas implicadas.'] ]}
+];
+const MAX_CRITERION = 10;
+const PASS_MARK = 5;
+
+/* ========== B. UTILIDADES ========== */
+function fmt(n){ return (Math.round(n*100)/100).toFixed(2).replace('.',','); }
+function parseScore(raw){
+  // Devuelve {empty, value, error}
+  const s = String(raw).trim().replace(',','.');
+  if(s===''){ return {empty:true,value:0,error:null}; }
+  const n = Number(s);
+  if(!isFinite(n)){ return {empty:false,value:0,error:'Valor no numérico'}; }
+  if(n<0){ return {empty:false,value:0,error:'No puede ser negativo'}; }
+  return {empty:false,value:n,error:null};
+}
+
+/* ========== C. CONSTRUCCIÓN DE LA INTERFAZ ========== */
+function buildUI(){
+  const container = document.getElementById('blocksContainer');
+  const grid = document.getElementById('summaryGrid');
+  BLOCKS.forEach(b=>{
+    // Panel resumen
+    grid.insertAdjacentHTML('beforeend',
+      `<div class="sum-item"><div class="lbl"><b>Bloque ${b.id}: ${b.code}</b>${b.name}</div>
+       <div class="val" id="sum-${b.id}">0,00</div><div class="max">/ 10,00 puntos</div></div>`);
+    // Filas de criterios
+    const rows = b.criteria.map((c,i)=>{
+      const id = `b${b.id}c${i+1}`;
+      return `<tr>
+        <td><div class="crit-name">${i+1}. ${c[0]}</div><div class="crit-desc">${c[1]}</div></td>
+        <td class="num">
+          <input type="text" inputmode="decimal" class="score-input" id="${id}" data-block="${b.id}" data-max="${MAX_CRITERION}"
+                 aria-label="Puntuación de ${c[0]} (bloque ${b.code}), máximo ${MAX_CRITERION}" placeholder="0–10" autocomplete="off">
+          <div class="err-msg" id="${id}-err" role="alert"></div>
+        </td></tr>`;
+    }).join('');
+    container.insertAdjacentHTML('beforeend',
+      `<section class="card" aria-labelledby="h-b${b.id}">
+        <h2 id="h-b${b.id}">Bloque ${b.id}: <span class="code">${b.code}</span> · ${b.name}</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Criterio</th><th class="num">Puntuación (0–10)</th></tr></thead>
+          <tbody>${rows}</tbody>
+          <tfoot><tr><td>Calificación del bloque (media, máx. 10,00)</td><td class="num block-total" id="total-${b.id}">0,00</td></tr></tfoot>
+        </table></div>
+        <div class="obs field"><label for="obs-${b.id}">Observaciones — Bloque ${b.id}: ${b.code}</label>
+          <textarea id="obs-${b.id}" class="obs-field" placeholder="Observaciones…"></textarea></div>
+      </section>`);
+  });
+  document.querySelectorAll('.score-input').forEach(inp=>{
+    inp.addEventListener('input', recalc);
+    inp.addEventListener('change', recalc);
+  });
+}
+
+/* ========== D. CÁLCULO ========== */
+function recalc(){
+  const avgs = [];
+  let anyData = false;
+  BLOCKS.forEach(b=>{
+    const inputs = document.querySelectorAll(`.score-input[data-block="${b.id}"]`);
+    let sum = 0;
+    inputs.forEach(inp=>{
+      const max = Number(inp.dataset.max);
+      const r = parseScore(inp.value);
+      const err = document.getElementById(inp.id+'-err');
+      let msg = r.error;
+      if(!msg && r.value>max){ msg = `Supera el máximo (${max})`; }
+      if(!r.empty) anyData = true;
+      if(msg){
+        inp.classList.add('invalid');
+        inp.setAttribute('aria-invalid','true');
+        err.textContent = '⚠ '+msg; err.classList.add('show');
+      } else {
+        inp.classList.remove('invalid');
+        inp.removeAttribute('aria-invalid');
+        err.textContent=''; err.classList.remove('show');
+        sum += Math.min(Math.max(r.value,0),max);   // solo valores válidos puntúan
+      }
+    });
+    const avg = inputs.length ? sum/inputs.length : 0;   // media de los 3 apartados (vacíos = 0)
+    const safe = isFinite(avg) ? Math.min(Math.max(avg,0),10) : 0;
+    avgs.push(safe);
+    document.getElementById('total-'+b.id).textContent = fmt(safe);
+    document.getElementById('sum-'+b.id).textContent = fmt(safe);
+  });
+
+  const finalAvg = avgs.reduce((a,v)=>a+v,0)/avgs.length;
+  const allPass = avgs.every(v=>v>=PASS_MARK);
+  const verdictEl = document.getElementById('finalVerdict');
+  const labelEl = document.getElementById('finalLabel');
+  document.getElementById('finalScore').textContent = fmt(finalAvg);
+
+  const apto = allPass && finalAvg>=PASS_MARK;
+  verdictEl.textContent = apto ? 'APTO' : 'NO APTO';
+  verdictEl.className = 'final-verdict ' + (apto ? 'apto' : 'noapto');
+
+  let label;
+  if(!anyData)            label = 'Sin calificar';
+  else if(finalAvg<=1)    label = 'Sin datos';
+  else if(apto)           label = 'Apto';
+  else                    label = 'No apto';
+  labelEl.textContent = label;
+}
+
+/* ========== E. RESTABLECER ========== */
+function resetAll(){
+  if(!confirm('¿Restablecer todos los datos de la rúbrica?')) return;
+  document.getElementById('alumno').value='';
+  document.getElementById('docente').value='';
+  document.getElementById('convocatoria').selectedIndex=0;
+  document.getElementById('fecha').value='';
+  document.querySelectorAll('.score-input').forEach(i=>i.value='');
+  document.querySelectorAll('.obs-field').forEach(t=>t.value='');
+  document.getElementById('valoracionGlobal').value='';
+  recalc();   // limpia errores, totales y calificación
+}
+
+/* ========== F. IMPRIMIR ========== */
+function printDoc(){ window.print(); }
+
+/* ========== G. INICIO ========== */
+document.getElementById('btnReset').addEventListener('click', resetAll);
+document.getElementById('btnPrint').addEventListener('click', printDoc);
+buildUI();
+recalc();
+</script>
+</body>
+</html>
