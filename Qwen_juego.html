@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Timeline Gamer: 1980-2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  :root {
+    --mario-red: #E52521;
+    --mario-blue: #049CD8;
+    --mario-yellow: #FBD000;
+    --mario-green: #43B047;
+    --mario-brown: #8B4513;
+    --mario-dark: #3D0C02;
+    --sky-blue: #6B8CFF;
+    --cloud-white: #FFFFFF;
+    --brick-color: #C84C09;
+    --pipe-green: #30B020;
+    --pipe-dark: #1A7A10;
+    --coin-gold: #FFD700;
+    --bg-dark: #1a1a2e;
+    --bg-darker: #0f0f1a;
+    --text-light: #f0f0f0;
+    --text-dark: #333;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Press Start 2P', monospace;
+    background: var(--sky-blue);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* === BACKGROUND ELEMENTS === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Clouds */
+  .cloud {
+    position: fixed;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.85;
+    z-index: 0;
+    animation: floatCloud linear infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+  }
+  .cloud-1 { width: 120px; height: 40px; top: 8%; left: -150px; animation-duration: 35s; }
+  .cloud-1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+  .cloud-1::after { width: 40px; height: 40px; top: -20px; left: 60px; }
+  .cloud-2 { width: 90px; height: 30px; top: 15%; left: -120px; animation-duration: 45s; animation-delay: 10s; }
+  .cloud-2::before { width: 45px; height: 45px; top: -25px; left: 15px; }
+  .cloud-2::after { width: 35px; height: 35px; top: -18px; left: 45px; }
+  .cloud-3 { width: 100px; height: 35px; top: 5%; left: -130px; animation-duration: 50s; animation-delay: 20s; }
+  .cloud-3::before { width: 50px; height: 50px; top: -28px; left: 18px; }
+  .cloud-3::after { width: 38px; height: 38px; top: -20px; left: 50px; }
+
+  @keyframes floatCloud {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 200px)); }
+  }
+
+  /* Hills */
+  .hills {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    z-index: 0;
+  }
+  .hill {
+    position: absolute;
+    bottom: 0;
+    border-radius: 50% 50% 0 0;
+    background: var(--mario-green);
+  }
+  .hill-1 { width: 300px; height: 100px; left: 5%; }
+  .hill-2 { width: 200px; height: 70px; left: 40%; background: #3AA03A; }
+  .hill-3 { width: 350px; height: 110px; left: 65%; background: #2D8F2D; }
+
+  /* Ground */
+  .ground {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        var(--brick-color) 0px,
+        var(--brick-color) 38px,
+        #A03800 38px,
+        #A03800 40px
+      );
+    border-top: 4px solid var(--mario-yellow);
+    z-index: 1;
+  }
+  .ground::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--mario-green) 0px,
+      var(--mario-green) 38px,
+      transparent 38px,
+      transparent 40px
+    );
+  }
+
+  /* === MAIN CONTAINER === */
+  .game-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 15px 60px;
+    min-height: 100vh;
+  }
+
+  /* === TITLE SCREEN === */
+  .title-screen {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .title-logo {
+    margin-bottom: 10px;
+  }
+
+  .title-logo h1 {
+    font-size: clamp(18px, 4vw, 36px);
+    color: var(--mario-yellow);
+    text-shadow: 
+      3px 3px 0 var(--mario-red),
+      -1px -1px 0 var(--mario-red),
+      1px -1px 0 var(--mario-red),
+      -1px 1px 0 var(--mario-red),
+      0 4px 8px rgba(0,0,0,0.4);
+    letter-spacing: 2px;
+    line-height: 1.4;
+  }
+
+  .title-logo h2 {
+    font-size: clamp(12px, 2.5vw, 20px);
+    color: var(--cloud-white);
+    text-shadow: 2px 2px 0 var(--mario-dark);
+    margin-top: 8px;
+    font-weight: normal;
+  }
+
+  .title-mario {
+    font-size: 60px;
+    margin: 20px 0;
+    animation: marioJump 1.5s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes marioJump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .title-desc {
+    color: white;
+    font-size: clamp(8px, 1.5vw, 11px);
+    line-height: 2;
+    max-width: 600px;
+    margin: 15px auto 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+
+  /* === LEVEL SELECT === */
+  .level-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 25px;
+  }
+
+  .level-card {
+    background: linear-gradient(180deg, #4a6fa5 0%, #2c4a7c 100%);
+    border: 3px solid var(--mario-yellow);
+    border-radius: 12px;
+    padding: 25px 20px;
+    width: 280px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .level-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--mario-yellow);
+  }
+
+  .level-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border-color: var(--coin-gold);
+  }
+
+  .level-card:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  .level-card.novato { border-color: var(--mario-green); }
+  .level-card.novato::before { background: var(--mario-green); }
+  .level-card.experto { border-color: var(--mario-blue); }
+  .level-card.experto::before { background: var(--mario-blue); }
+  .level-card.legendario { border-color: var(--mario-red); }
+  .level-card.legendario::before { background: var(--mario-red); }
+
+  .level-icon { font-size: 40px; margin-bottom: 10px; }
+
+  .level-name {
+    color: var(--mario-yellow);
+    font-size: clamp(11px, 2vw, 15px);
+    margin-bottom: 8px;
+  }
+
+  .level-desc {
+    color: rgba(255,255,255,0.85);
+    font-size: clamp(7px, 1.2vw, 9px);
+    line-height: 1.8;
+  }
+
+  .level-stars {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  /* === GAME SCREEN === */
+  .game-screen {
+    display: none;
+  }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.4);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .game-header h2 {
+    color: var(--mario-yellow);
+    font-size: clamp(10px, 2vw, 14px);
+  }
+
+  .game-stats {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .stat {
+    text-align: center;
+    color: white;
+    font-size: clamp(8px, 1.3vw, 10px);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--mario-yellow);
+    margin-bottom: 4px;
+  }
+
+  .btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(8px, 1.3vw, 10px);
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .btn:hover { transform: scale(1.05); }
+  .btn:active { transform: scale(0.95); }
+
+  .btn-back {
+    background: var(--mario-red);
+    color: white;
+    box-shadow: 0 3px 0 #a01010;
+  }
+  .btn-back:active { box-shadow: 0 1px 0 #a01010; transform: translateY(2px); }
+
+  .btn-check {
+    background: var(--mario-green);
+    color: white;
+    box-shadow: 0 3px 0 #2a7a2a;
+  }
+  .btn-check:active { box-shadow: 0 1px 0 #2a7a2a; transform: translateY(2px); }
+
+  .btn-hint {
+    background: var(--mario-blue);
+    color: white;
+    box-shadow: 0 3px 0 #0270a0;
+  }
+  .btn-hint:active { box-shadow: 0 1px 0 #0270a0; transform: translateY(2px); }
+
+  .btn-shuffle {
+    background: var(--mario-brown);
+    color: white;
+    box-shadow: 0 3px 0 #5a2d00;
+  }
+  .btn-shuffle:active { box-shadow: 0 1px 0 #5a2d00; transform: translateY(2px); }
+
+  /* === DRAG AREA === */
+  .drop-zone {
+    background: rgba(0,0,0,0.35);
+    border: 3px dashed rgba(255,255,255,0.25);
+    border-radius: 15px;
+    min-height: 200px;
+    padding: 15px;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+
+  .drop-zone.drag-over {
+    border-color: var(--mario-yellow);
+    background: rgba(251,208,0,0.1);
+    box-shadow: 0 0 20px rgba(251,208,0,0.2);
+  }
+
+  .drop-zone-label {
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    font-size: clamp(8px, 1.3vw, 11px);
+    padding: 40px 20px;
+    pointer-events: none;
+  }
+
+  /* === CONSOLE CARDS === */
+  .consoles-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .console-card {
+    background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: grab;
+    transition: all 0.2s;
+    user-select: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .console-card:hover {
+    border-color: var(--mario-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .console-card:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+  }
+
+  .console-card.placed {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .console-card.correct {
+    border-color: var(--mario-green) !important;
+    background: linear-gradient(135deg, #1a4a1a, #0a3a0a) !important;
+    animation: correctPulse 0.5s ease;
+  }
+
+  .console-card.wrong {
+    border-color: var(--mario-red) !important;
+    background: linear-gradient(135deg, #4a1a1a, #3a0a0a) !important;
+    animation: wrongShake 0.5s ease;
+  }
+
+  @keyframes correctPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  .console-icon { font-size: 22px; }
+
+  .console-name {
+    color: white;
+    font-size: clamp(7px, 1.2vw, 9px);
+    line-height: 1.5;
+  }
+
+  .console-year {
+    color: var(--mario-yellow);
+    font-size: clamp(7px, 1vw, 8px);
+    margin-top: 2px;
+  }
+
+  /* === TIMELINE ORDER (for Novato - buckets) === */
+  .decade-buckets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .decade-bucket {
+    background: rgba(0,0,0,0.4);
+    border: 3px dashed rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 120px;
+    transition: all 0.3s;
+  }
+
+  .decade-bucket.drag-over {
+    border-color: var(--mario-yellow);
+    background: rgba(251,208,0,0.1);
+  }
+
+  .decade-bucket-header {
+    text-align: center;
+    color: var(--mario-yellow);
+    font-size: clamp(10px, 1.8vw, 14px);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .decade-bucket .console-card {
+    margin-bottom: 6px;
+    font-size: 8px;
+  }
+
+  /* === GENERATION MATCHING (Legendario) === */
+  .gen-match-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .gen-column {
+    background: rgba(0,0,0,0.35);
+    border-radius: 12px;
+    padding: 15px;
+  }
+
+  .gen-column h3 {
+    color: var(--mario-yellow);
+    font-size: clamp(9px, 1.5vw, 12px);
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+  }
+
+  .gen-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .gen-console {
+    color: white;
+    font-size: clamp(7px, 1.2vw, 9px);
+    flex: 1;
+  }
+
+  .gen-select {
+    font-family: 'Press Start 2P', monospace;
+    background: rgba(0,0,0,0.5);
+    color: var(--mario-yellow);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: clamp(7px, 1vw, 8px);
+    cursor: pointer;
+    min-width: 140px;
+  }
+
+  .gen-select:focus {
+    border-color: var(--mario-yellow);
+    outline: none;
+  }
+
+  /* === RESULTS MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: linear-gradient(180deg, #2a2a5a, #1a1a3a);
+    border: 3px solid var(--mario-yellow);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    animation: modalPop 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  @keyframes modalPop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal h2 {
+    color: var(--mario-yellow);
+    font-size: clamp(14px, 3vw, 22px);
+    margin-bottom: 15px;
+  }
+
+  .modal-score {
+    font-size: clamp(30px, 8vw, 50px);
+    color: var(--mario-yellow);
+    margin: 15px 0;
+    text-shadow: 2px 2px 0 var(--mario-red);
+  }
+
+  .modal-message {
+    color: white;
+    font-size: clamp(8px, 1.5vw, 11px);
+    line-height: 2;
+    margin-bottom: 20px;
+  }
+
+  .modal-stars {
+    font-size: 30px;
+    margin: 10px 0;
+  }
+
+  .modal-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  /* === PROGRESS BAR === */
+  .progress-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--mario-green), var(--mario-yellow));
+    border-radius: 6px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .game-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .game-stats {
+      justify-content: center;
+    }
+    .decade-buckets {
+      grid-template-columns: 1fr;
+    }
+    .gen-match-area {
+      grid-template-columns: 1fr;
+    }
+    .level-card {
+      width: 100%;
+    }
+  }
+
+  /* === COIN ANIMATION === */
+  .coin {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 200;
+    animation: coinFloat 1s ease-out forwards;
+  }
+
+  @keyframes coinFloat {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+  }
+
+  /* === TOOLTIP === */
+  .tooltip {
+    position: fixed;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 8px;
+    pointer-events: none;
+    z-index: 50;
+    border: 1px solid var(--mario-yellow);
+    display: none;
+    max-width: 200px;
+    line-height: 1.6;
+  }
+
+  .timer-display {
+    font-size: clamp(12px, 2vw, 18px);
+    color: var(--mario-yellow);
+  }
+
+  /* Instruction box */
+  .instructions {
+    background: rgba(0,0,0,0.35);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: white;
+    font-size: clamp(7px, 1.2vw, 9px);
+    line-height: 2;
+  }
+
+  .instructions strong {
+    color: var(--mario-yellow);
+  }
+
+  /* Correct answer reveal */
+  .answer-reveal {
+    background: rgba(0,0,0,0.4);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .answer-reveal h3 {
+    color: var(--mario-yellow);
+    font-size: clamp(9px, 1.5vw, 12px);
+    margin-bottom: 10px;
+  }
+
+  .answer-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: white;
+    font-size: clamp(7px, 1.1vw, 9px);
+  }
+
+  .answer-item:last-child { border: none; }
+  .answer-year { color: var(--mario-yellow); min-width: 45px; }
+  .answer-name { color: white; }
+
+  /* Mobile touch drag */
+  .console-card.touch-dragging {
+    position: fixed;
+    z-index: 1000;
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0.9;
+  }
+</style>
+</head>
+<body>
+
+<!-- Background elements -->
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+<div class="hills">
+  <div class="hill hill-1"></div>
+  <div class="hill hill-2"></div>
+  <div class="hill hill-3"></div>
+</div>
+<div class="ground"></div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="game-container">
+
+  <!-- ===== TITLE SCREEN ===== -->
+  <div id="titleScreen" class="title-screen">
+    <div class="title-logo">
+      <h1>🎮 TIMELINE GAMER 🎮</h1>
+      <h2>1980 — 2026</h2>
+    </div>
+    <div class="title-mario">🍄</div>
+    <div class="title-desc">
+      ¡Ordena 25 hitos de la historia del gaming!<br>
+      Elige tu nivel de dificultad y demuestra<br>
+      cuánto sabes sobre la evolución de las consolas.
+    </div>
+    <div class="level-select">
+      <div class="level-card novato" onclick="startGame('novato')">
+        <div class="level-icon">🟢</div>
+        <div class="level-name">NIVEL NOVATO</div>
+        <div class="level-desc">Agrupa cada consola en su década correcta (80s, 90s, 00s, 10s, 20s)</div>
+        <div class="level-stars">⭐</div>
+      </div>
+      <div class="level-card experto" onclick="startGame('experto')">
+        <div class="level-icon">🔵</div>
+        <div class="level-name">NIVEL EXPERTO</div>
+        <div class="level-desc">Ordena TODAS las consolas en su año exacto de lanzamiento</div>
+        <div class="level-stars">⭐⭐</div>
+      </div>
+      <div class="level-card legendario" onclick="startGame('legendario')">
+        <div class="level-icon">🔴</div>
+        <div class="level-name">NIVEL LEGENDARIO</div>
+        <div class="level-desc">Identifica en qué generación ("guerra de consolas") compitió cada una</div>
+        <div class="level-stars">⭐⭐⭐</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="gameScreen" class="game-screen">
+    <div class="game-header">
+      <div>
+        <h2 id="gameTitle">NIVEL NOVATO</h2>
+        <div style="color:rgba(255,255,255,0.5); font-size:8px; margin-top:4px;" id="gameSubtitle"></div>
+      </div>
+      <div class="game-stats">
+        <div class="stat">
+          <span class="stat-value" id="scoreDisplay">0</span>
+          PUNTOS
+        </div>
+        <div class="stat">
+          <span class="stat-value timer-display" id="timerDisplay">00:00</span>
+          TIEMPO
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="correctDisplay">0/25</span>
+          CORRECTAS
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-hint" onclick="showHint()">💡 PISTA</button>
+        <button class="btn btn-shuffle" onclick="shuffleConsoles()">🔀 MEZCLAR</button>
+        <button class="btn btn-check" onclick="checkAnswers()">✅ COMPROBAR</button>
+        <button class="btn btn-back" onclick="goToMenu()">🏠 MENÚ</button>
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="instructions" id="instructions"></div>
+
+    <!-- NOVIDEO AREA -->
+    <div id="novatoArea" style="display:none;">
+      <div class="decade-buckets" id="decadeBuckets"></div>
+      <h3 style="color:white; text-align:center; margin-bottom:10px; font-size:10px;">📦 Consolas disponibles:</h3>
+      <div class="consoles-pool" id="novatoPool"></div>
+    </div>
+
+    <!-- EXPERTO AREA -->
+    <div id="expertoArea" style="display:none;">
+      <h3 style="color:white; text-align:center; margin-bottom:10px; font-size:10px;">📅 Arrastra las consolas en orden cronológico (de más antigua a más moderna):</h3>
+      <div class="drop-zone" id="expertoDrop">
+        <div class="drop-zone-label">⬆️ Arrastra las consolas aquí en orden ⬆️</div>
+      </div>
+      <h3 style="color:white; text-align:center; margin-bottom:10px; font-size:10px;">📦 Pool de consolas:</h3>
+      <div class="consoles-pool" id="expertoPool"></div>
+    </div>
+
+    <!-- LEGENDARIO AREA -->
+    <div id="legendarioArea" style="display:none;">
+      <div class="gen-match-area">
+        <div class="gen-column">
+          <h3>🎮 Consolas</h3>
+          <div id="genConsolesList"></div>
+        </div>
+        <div class="gen-column">
+          <h3>🏆 Generación</h3>
+          <div id="genSelects"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Answer reveal area -->
+    <div id="answerReveal" style="display:none;" class="answer-reveal"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">🎉 ¡NIVEL COMPLETADO! 🎉</h2>
+    <div class="modal-stars" id="modalStars">⭐⭐⭐</div>
+    <div class="modal-score" id="modalScore">1000</div>
+    <div class="modal-message" id="modalMessage">¡Increíble!</div>
+    <div id="modalDetails" style="color:rgba(255,255,255,0.7); font-size:8px; line-height:2; margin-bottom:10px;"></div>
+    <div class="modal-btns">
+      <button class="btn btn-check" onclick="closeModal()">🔄 REINTENTAR</button>
+      <button class="btn btn-back" onclick="closeModal(); goToMenu();">🏠 MENÚ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== GAME DATA =====
+const ALL_CONSOLES = [
+  { id: 'game_watch', name: 'Game & Watch', year: 1980, gen: 2, icon: '⌚' },
+  { id: 'atari_5200', name: 'Atari 5200', year: 1982, gen: 2, icon: '🕹️' },
+  { id: 'nes', name: 'NES (Famicom)', year: 1983, gen: 3, icon: '🎮' },
+  { id: 'master_system', name: 'Sega Master System', year: 1985, gen: 3, icon: '🎮' },
+  { id: 'pc_engine', name: 'PC Engine', year: 1987, gen: 4, icon: '🎮' },
+  { id: 'genesis', name: 'Sega Genesis', year: 1988, gen: 4, icon: '🎮' },
+  { id: 'gameboy', name: 'Game Boy', year: 1989, gen: 4, icon: '🎮' },
+  { id: 'snes', name: 'Super Nintendo', year: 1990, gen: 4, icon: '🎮' },
+  { id: 'ps1', name: 'PlayStation', year: 1994, gen: 5, icon: '🎮' },
+  { id: 'n64', name: 'Nintendo 64', year: 1996, gen: 5, icon: '🎮' },
+  { id: 'dreamcast', name: 'Dreamcast', year: 1998, gen: 6, icon: '🎮' },
+  { id: 'ps2', name: 'PlayStation 2', year: 2000, gen: 6, icon: '🎮' },
+  { id: 'xbox', name: 'Xbox (Original)', year: 2001, gen: 6, icon: '🎮' },
+  { id: 'gamecube', name: 'GameCube', year: 2001, gen: 6, icon: '🎮' },
+  { id: 'nds', name: 'Nintendo DS', year: 2004, gen: 7, icon: '🎮' },
+  { id: 'xbox360', name: 'Xbox 360', year: 2005, gen: 7, icon: '🎮' },
+  { id: 'wii', name: 'Wii', year: 2006, gen: 7, icon: '🎮' },
+  { id: 'ps3', name: 'PlayStation 3', year: 2006, gen: 7, icon: '🎮' },
+  { id: '3ds', name: 'Nintendo 3DS', year: 2011, gen: 8, icon: '🎮' },
+  { id: 'ps4', name: 'PlayStation 4', year: 2013, gen: 8, icon: '🎮' },
+  { id: 'switch', name: 'Nintendo Switch', year: 2017, gen: 8, icon: '🎮' },
+  { id: 'ps5', name: 'PlayStation 5', year: 2020, gen: 9, icon: '🎮' },
+  { id: 'series_x', name: 'Xbox Series X', year: 2020, gen: 9, icon: '🎮' },
+  { id: 'steam_deck', name: 'Steam Deck', year: 2022, gen: 9, icon: '🎮' },
+  { id: 'ps5_pro', name: 'PlayStation 5 Pro', year: 2024, gen: 9, icon: '🎮' },
+  { id: 'switch2', name: 'Nintendo Switch 2', year: 2025, gen: 9, icon: '🎮' },
+];
+
+const GEN_NAMES = {
+  2: 'Gen 2 (1976-1983)',
+  3: 'Gen 3 (1983-1990)',
+  4: 'Gen 4 (1987-1996)',
+  5: 'Gen 5 (1993-2002)',
+  6: 'Gen 6 (1998-2006)',
+  7: 'Gen 7 (2005-2012)',
+  8: 'Gen 8 (2012-2020)',
+  9: 'Gen 9 (2020-presente)',
+};
+
+// State
+let currentLevel = null;
+let score = 0;
+let correctCount = 0;
+let timerInterval = null;
+let startTime = null;
+let draggedElement = null;
+let touchDragEl = null;
+
+// ===== UTILITY FUNCTIONS =====
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getDecade(year) {
+  if (year >= 1980 && year < 1990) return '80s';
+  if (year >= 1990 && year < 2000) return '90s';
+  if (year >= 2000 && year < 2010) return '00s';
+  if (year >= 2010 && year < 2020) return '10s';
+  if (year >= 2020) return '20s';
+  return '?';
+}
+
+function createConsoleCard(console) {
+  const card = document.createElement('div');
+  card.className = 'console-card';
+  card.draggable = true;
+  card.dataset.id = console.id;
+  card.innerHTML = `
+    <span class="console-icon">${console.icon}</span>
+    <div>
+      <div class="console-name">${console.name}</div>
+      <div class="console-year" style="display:none;"></div>
+    </div>
+  `;
+
+  // Desktop drag events
+  card.addEventListener('dragstart', handleDragStart);
+  card.addEventListener('dragend', handleDragEnd);
+
+  return card;
+}
+
+function showCoinAnimation(x, y) {
+  const coin = document.createElement('div');
+  coin.className = 'coin';
+  coin.textContent = '🪙';
+  coin.style.left = x + 'px';
+  coin.style.top = y + 'px';
+  document.body.appendChild(coin);
+  setTimeout(() => coin.remove(), 1000);
+}
+
+// ===== TIMER =====
+function startTimer() {
+  startTime = Date.now();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const secs = String(elapsed % 60).padStart(2, '0');
+    document.getElementById('timerDisplay').textContent = `${mins}:${secs}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+// ===== DRAG AND DROP =====
+function handleDragStart(e) {
+  draggedElement = e.target.closest('.console-card');
+  if (draggedElement) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', draggedElement.dataset.id);
+    setTimeout(() => draggedElement.style.opacity = '0.4', 0);
+  }
+}
+
+function handleDragEnd(e) {
+  if (draggedElement) {
+    draggedElement.style.opacity = '1';
+    draggedElement = null;
+  }
+  document.querySelectorAll('.drop-zone, .decade-bucket').forEach(z => z.classList.remove('drag-over'));
+}
+
+// Touch support
+let touchClone = null;
+let touchOffsetX = 0;
+let touchOffsetY = 0;
+let originalTouchEl = null;
+
+function handleTouchStart(e) {
+  const card = e.target.closest('.console-card');
+  if (!card) return;
+  originalTouchEl = card;
+  const rect = card.getBoundingClientRect();
+  touchOffsetX = e.touches[0].clientX - rect.left;
+  touchOffsetY = e.touches[0].clientY - rect.top;
+
+  touchClone = card.cloneNode(true);
+  touchClone.classList.add('touch-dragging');
+  touchClone.style.width = rect.width + 'px';
+  touchClone.style.left = (e.touches[0].clientX - touchOffsetX) + 'px';
+  touchClone.style.top = (e.touches[0].clientY - touchOffsetY) + 'px';
+  document.body.appendChild(touchClone);
+  card.style.opacity = '0.3';
+}
+
+function handleTouchMove(e) {
+  if (!touchClone) return;
+  e.preventDefault();
+  touchClone.style.left = (e.touches[0].clientX - touchOffsetX) + 'px';
+  touchClone.style.top = (e.touches[0].clientY - touchOffsetY) + 'px';
+
+  // Highlight drop targets
+  const touch = e.touches[0];
+  document.querySelectorAll('.drop-zone, .decade-bucket').forEach(zone => {
+    const rect = zone.getBoundingClientRect();
+    if (touch.clientX >= rect.left && touch.clientX <= rect.right && touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+      zone.classList.add('drag-over');
+    } else {
+      zone.classList.remove('drag-over');
+    }
+  });
+}
+
+function handleTouchEnd(e) {
+  if (!touchClone || !originalTouchEl) return;
+  const touch = e.changedTouches[0];
+
+  document.querySelectorAll('.drop-zone, .decade-bucket').forEach(zone => {
+    const rect = zone.getBoundingClientRect();
+    if (touch.clientX >= rect.left && touch.clientX <= rect.right && touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+      // Simulate drop
+      const dropEvent = new Event('drop');
+      dropEvent.dataTransfer = { getData: () => originalTouchEl.dataset.id };
+      zone.dispatchEvent(new CustomEvent('customDrop', { detail: originalTouchEl }));
+    }
+    zone.classList.remove('drag-over');
+  });
+
+  touchClone.remove();
+  touchClone = null;
+  if (originalTouchEl) originalTouchEl.style.opacity = '1';
+  originalTouchEl = null;
+}
+
+// ===== GAME INIT =====
+function startGame(level) {
+  currentLevel = level;
+  score = 0;
+  correctCount = 0;
+
+  document.getElementById('titleScreen').style.display = 'none';
+  document.getElementById('gameScreen').style.display = 'block';
+  document.getElementById('answerReveal').style.display = 'none';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('correctDisplay').textContent = '0/25';
+
+  // Hide all areas
+  document.getElementById('novatoArea').style.display = 'none';
+  document.getElementById('expertoArea').style.display = 'none';
+  document.getElementById('legendarioArea').style.display = 'none';
+
+  if (level === 'novato') initNovato();
+  else if (level === 'experto') initExperto();
+  else if (level === 'legendario') initLegendario();
+
+  startTimer();
+}
+
+function goToMenu() {
+  stopTimer();
+  document.getElementById('titleScreen').style.display = 'block';
+  document.getElementById('gameScreen').style.display = 'none';
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// ===== NOVATO LEVEL =====
+function initNovato() {
+  document.getElementById('gameTitle').textContent = '🟢 NIVEL NOVATO';
+  document.getElementById('gameSubtitle').textContent = 'Agrupa por décadas';
+  document.getElementById('novatoArea').style.display = 'block';
+  document.getElementById('instructions').innerHTML = `
+    <strong>🎯 Instrucciones:</strong> Arrastra cada consola al cubo de su década correcta.<br>
+    <strong>💡 Tip:</strong> Solo necesitas saber en qué década fue lanzada, no el año exacto.
+  `;
+
+  const decades = ['80s', '90s', '00s', '10s', '20s'];
+  const bucketsContainer = document.getElementById('decadeBuckets');
+  bucketsContainer.innerHTML = '';
+
+  decades.forEach(dec => {
+    const bucket = document.createElement('div');
+    bucket.className = 'decade-bucket';
+    bucket.dataset.decade = dec;
+    bucket.innerHTML = `<div class="décade-bucket-header">${dec}</div>`;
+    bucketsContainer.appendChild(bucket);
+
+    // Drop events
+    bucket.addEventListener('dragover', (e) => { e.preventDefault(); bucket.classList.add('drag-over'); });
+    bucket.addEventListener('dragleave', () => bucket.classList.remove('drag-over'));
+    bucket.addEventListener('drop', (e) => {
+      e.preventDefault();
+      bucket.classList.remove('drag-over');
+      handleDropToBucket(bucket, e.dataTransfer.getData('text/plain'));
+    });
+    bucket.addEventListener('customDrop', (e) => {
+      handleDropToBucket(bucket, e.detail.dataset.id);
+    });
+  });
+
+  const pool = document.getElementById('novatoPool');
+  pool.innerHTML = '';
+  const shuffled = shuffle(ALL_CONSOLES);
+  shuffled.forEach(c => pool.appendChild(createConsoleCard(c)));
+
+  // Touch events on pool
+  pool.addEventListener('touchstart', handleTouchStart, { passive: false });
+  document.addEventListener('touchmove', handleTouchMove, { passive: false });
+  document.addEventListener('touchend', handleTouchEnd);
+}
+
+function handleDropToBucket(bucket, consoleId) {
+  const consoleData = ALL_CONSOLES.find(c => c.id === consoleId);
+  if (!consoleData) return;
+
+  const correctDecade = getDecade(consoleData.year);
+  const isCorrect = bucket.dataset.decade === correctDecade;
+
+  if (isCorrect) {
+    score += 40;
+    correctCount++;
+    updateScore();
+    showCoinAnimation(bucket.getBoundingClientRect().left + 50, bucket.getBoundingClientRect().top);
+  }
+
+  // Move card to bucket
+  const card = document.querySelector(`.console-card[data-id="${consoleId}"]:not(.placed)`);
+  if (card) {
+    card.classList.add('placed');
+    card.draggable = false;
+    card.style.opacity = '1';
+
+    const displayCard = card.cloneNode(true);
+    displayCard.classList.remove('placed');
+    displayCard.draggable = false;
+    displayCard.style.cursor = 'default';
+    displayCard.style.opacity = '1';
+
+    if (isCorrect) {
+      displayCard.classList.add('correct');
+    } else {
+      displayCard.classList.add('wrong');
+    }
+
+    bucket.appendChild(displayCard);
+
+    // Remove original
+    const pool = document.getElementById('novatoPool');
+    card.remove();
+  }
+
+  // Check if all placed
+  if (correctCount === ALL_CONSOLES.length) {
+    setTimeout(() => showResults(), 500);
+  }
+}
+
+// ===== EXPERTO LEVEL =====
+function initExperto() {
+  document.getElementById('gameTitle').textContent = '🔵 NIVEL EXPERTO';
+  document.getElementById('gameSubtitle').textContent = 'Ordena año por año';
+  document.getElementById('expertoArea').style.display = 'block';
+  document.getElementById('instructions').innerHTML = `
+    <strong>🎯 Instrucciones:</strong> Arrastra las consolas a la zona superior en orden cronológico (la más antigua primero).<br>
+    <strong>💡 Tip:</strong> Puedes reordenar arrastrando una consola ya colocada a otra posición.
+  `;
+
+  const dropZone = document.getElementById('expertoDrop');
+  const pool = document.getElementById('expertoPool');
+  dropZone.innerHTML = '<div class="drop-zone-label">⬆️ Arrastra las consolas aquí en orden cronológico ⬆️</div>';
+  pool.innerHTML = '';
+
+  const shuffled = shuffle(ALL_CONSOLES);
+  shuffled.forEach(c => pool.appendChild(createConsoleCard(c)));
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    handleDropToExperto(e);
+  });
+
+  // Touch events
+  pool.addEventListener('touchstart', handleTouchStart, { passive: false });
+  document.addEventListener('touchmove', handleTouchMove, { passive: false });
+  document.addEventListener('touchend', handleTouchEnd);
+}
+
+function handleDropToExperto(e) {
+  const consoleId = e.dataTransfer.getData('text/plain');
+  const consoleData = ALL_CONSOLES.find(c => c.id === consoleId);
+  if (!consoleData) return;
+
+  const dropZone = document.getElementById('expertoDrop');
+  const label = dropZone.querySelector('.drop-zone-label');
+  if (label) label.remove();
+
+  const existingCards = dropZone.querySelectorAll('.console-card');
+  const card = createConsoleCard(consoleData);
+  card.classList.add('placed');
+  card.draggable = true;
+
+  // Find insertion position
+  let inserted = false;
+  for (const ec of existingCards) {
+    const rect = ec.getBoundingClientRect();
+    if (e.clientY < rect.top + rect.height / 2) {
+      dropZone.insertBefore(card, ec);
+      inserted = true;
+      break;
+    }
+  }
+  if (!inserted) dropZone.appendChild(card);
+
+  // Remove from pool
+  const pool = document.getElementById('expertoPool');
+  const poolCard = pool.querySelector(`.console-card[data-id="${consoleId}"]`);
+  if (poolCard) poolCard.remove();
+
+  // Reorder within dropzone - make cards sortable
+  makeDropZoneSortable(dropZone);
+}
+
+function makeDropZoneSortable(zone) {
+  const cards = zone.querySelectorAll('.console-card');
+  cards.forEach(card => {
+    card.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    card.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dragId = e.dataTransfer.getData('text/plain');
+      const dragCard = zone.querySelector(`.console-card[data-id="${dragId}"]`) || 
+                       document.getElementById('expertoPool').querySelector(`.console-card[data-id="${dragId}"]`);
+      if (dragCard && dragCard !== card) {
+        zone.insertBefore(dragCard, card);
+      }
+    });
+  });
+}
+
+// ===== LEGENDARIO LEVEL =====
+function initLegendario() {
+  document.getElementById('gameTitle').textContent = '🔴 NIVEL LEGENDARIO';
+  document.getElementById('gameSubtitle').textContent = 'Identifica la generación';
+  document.getElementById('legendarioArea').style.display = 'block';
+  document.getElementById('instructions').innerHTML = `
+    <strong>🎯 Instrucciones:</strong> Para cada consola, selecciona la generación ("guerra de consolas") en la que compitió.<br>
+    <strong>💡 Tip:</strong> Consolas de la misma generación fueron rivales directas.
+  `;
+
+  const consolesList = document.getElementById('genConsolesList');
+  const selectsDiv = document.getElementById('genSelects');
+  consolesList.innerHTML = '';
+  selectsDiv.innerHTML = '';
+
+  const shuffled = shuffle(ALL_CONSOLES);
+  shuffled.forEach(c => {
+    // Console name
+    const item = document.createElement('div');
+    item.className = 'gen-item';
+    item.innerHTML = `<span style="font-size:18px;">${c.icon}</span><span class="gen-console">${c.name}</span>`;
+    consolesList.appendChild(item);
+
+    // Select
+    const selItem = document.createElement('div');
+    selItem.className = 'gen-item';
+    selItem.innerHTML = `
+      <select class="gen-select" data-id="${c.id}">
+        <option value="">-- Selecciona --</option>
+        ${Object.entries(GEN_NAMES).map(([gen, name]) => `<option value="${gen}">${name}</option>`).join('')}
+      </select>
+    `;
+    selectsDiv.appendChild(selItem);
+  });
+
+  // Add change listeners
+  selectsDiv.querySelectorAll('.gen-select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      checkLegendarioSelection(sel);
+    });
+  });
+}
+
+function checkLegendarioSelection(sel) {
+  const consoleId = sel.dataset.id;
+  const selectedGen = parseInt(sel.value);
+  const consoleData = ALL_CONSOLES.find(c => c.id === consoleId);
+  if (!consoleData || !selectedGen) return;
+
+  if (selectedGen === consoleData.gen) {
+    sel.style.borderColor = 'var(--mario-green)';
+    sel.style.background = 'rgba(0,100,0,0.3)';
+    score += 40;
+    correctCount++;
+  } else {
+    sel.style.borderColor = 'var(--mario-red)';
+    sel.style.background = 'rgba(100,0,0,0.3)';
+    setTimeout(() => {
+      sel.style.borderColor = 'rgba(255,255,255,0.2)';
+      sel.style.background = 'rgba(0,0,0,0.5)';
+    }, 1500);
+  }
+  updateScore();
+}
+
+// ===== CHECK ANSWERS =====
+function checkAnswers() {
+  stopTimer();
+
+  if (currentLevel === 'novato') {
+    // Count remaining in pool
+    const pool = document.getElementById('novatoPool');
+    const remaining = pool.querySelectorAll('.console-card').length;
+    if (remaining > 0) {
+      alert(`⚠️ Aún quedan ${remaining} consolas sin colocar. ¡Arrastra todas a su década!`);
+      startTimer();
+      return;
+    }
+    showResults();
+  }
+
+  if (currentLevel === 'experto') {
+    const dropZone = document.getElementById('expertoDrop');
+    const cards = dropZone.querySelectorAll('.console-card');
+    const placed = cards.length;
+
+    if (placed < ALL_CONSOLES.length) {
+      alert(`⚠️ Has colocado ${placed} de ${ALL_CONSOLES.length} consolas. ¡Colócalas todas!`);
+      startTimer();
+      return;
+    }
+
+    // Check order
+    score = 0;
+    correctCount = 0;
+    const sorted = ALL_CONSOLES.map(c => c.year).sort((a, b) => a - b);
+
+    cards.forEach((card, index) => {
+      const consoleId = card.dataset.id;
+      const consoleData = ALL_CONSOLES.find(c => c.id === consoleId);
+      if (consoleData && consoleData.year === sorted[index]) {
+        card.classList.add('correct');
+        score += 40;
+        correctCount++;
+      } else {
+        card.classList.add('wrong');
+      }
+    });
+
+    updateScore();
+    showResults();
+  }
+
+  if (currentLevel === 'legendario') {
+    const selects = document.querySelectorAll('.gen-select');
+    let allAnswered = true;
+    selects.forEach(sel => {
+      if (!sel.value) allAnswered = false;
+    });
+
+    if (!allAnswered) {
+      alert('⚠️ Debes seleccionar una generación para TODAS las consolas.');
+      startTimer();
+      return;
+    }
+
+    score = 0;
+    correctCount = 0;
+    selects.forEach(sel => {
+      const consoleId = sel.dataset.id;
+      const selectedGen = parseInt(sel.value);
+      const consoleData = ALL_CONSOLES.find(c => c.id === consoleId);
+      if (consoleData && selectedGen === consoleData.gen) {
+        sel.style.borderColor = 'var(--mario-green)';
+        sel.style.background = 'rgba(0,100,0,0.3)';
+        score += 40;
+        correctCount++;
+      } else {
+        sel.style.borderColor = 'var(--mario-red)';
+        sel.style.background = 'rgba(100,0,0,0.3)';
+      }
+    });
+
+    updateScore();
+    showResults();
+  }
+}
+
+// ===== UPDATE SCORE =====
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('correctDisplay').textContent = `${correctCount}/${ALL_CONSOLES.length}`;
+  const pct = (correctCount / ALL_CONSOLES.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ===== SHOW RESULTS =====
+function showResults() {
+  stopTimer();
+
+  const maxScore = ALL_CONSOLES.length * 40;
+  const pct = (correctCount / ALL_CONSOLES.length) * 100;
+  let stars = 0;
+  let message = '';
+
+  if (pct >= 95) { stars = 3; message = '🏆 ¡PERFECTO! ¡Eres un verdadero historiador del gaming!'; }
+  else if (pct >= 75) { stars = 2; message = '🎉 ¡Muy bien! Conoces bien la historia de las consolas.'; }
+  else if (pct >= 50) { stars = 1; message = '👍 Nada mal, pero puedes mejorar. ¡Inténtalo de nuevo!'; }
+  else { message = '😅 ¡Ups! Parece que necesitas repasar tu historia gamer.'; }
+
+  const starStr = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+
+  document.getElementById('modalTitle').textContent = pct >= 75 ? '🎉 ¡NIVEL COMPLETADO! 🎉' : '📊 RESULTADOS';
+  document.getElementById('modalStars').textContent = starStr;
+  document.getElementById('modalScore').textContent = score;
+  document.getElementById('modalMessage').textContent = message;
+  document.getElementById('modalDetails').innerHTML = `
+    Correctas: ${correctCount} / ${ALL_CONSOLES.length}<br>
+    Porcentaje: ${pct.toFixed(1)}%<br>
+    Puntuación máxima posible: ${maxScore}
+  `;
+
+  // Show answer reveal
+  showAnswerReveal();
+
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function showAnswerReveal() {
+  const reveal = document.getElementById('answerReveal');
+  reveal.style.display = 'block';
+
+  const sorted = [...ALL_CONSOLES].sort((a, b) => a.year - b.year);
+
+  let html = '<h3>📋 Línea de Tiempo Completa:</h3>';
+  sorted.forEach(c => {
+    const decade = getDecade(c.year);
+    const gen = GEN_NAMES[c.gen] || '';
+    html += `<div class="answer-item">
+      <span class="answer-year">${c.year}</span>
+      <span>${c.icon}</span>
+      <span class="answer-name">${c.name}</span>
+      <span style="color:rgba(255,255,255,0.4); margin-left:auto; font-size:7px;">[${decade}] ${gen}</span>
+    </div>`;
+  });
+
+  reveal.innerHTML = html;
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  // Restart current level
+  if (currentLevel) startGame(currentLevel);
+}
+
+// ===== HINTS =====
+function showHint() {
+  if (currentLevel === 'novato') {
+    // Find an unplaced console and highlight its correct bucket
+    const pool = document.getElementById('novatoPool');
+    const unplaced = pool.querySelectorAll('.console-card:not(.placed)');
+    if (unplaced.length === 0) return;
+
+    const card = unplaced[0];
+    const consoleData = ALL_CONSOLES.find(c => c.id === card.dataset.id);
+    if (consoleData) {
+      const correctDecade = getDecade(consoleData.year);
+      const bucket = document.querySelector(`.decade-bucket[data-decade="${correctDecade}"]`);
+      if (bucket) {
+        bucket.style.borderColor = 'var(--mario-yellow)';
+        bucket.style.boxShadow = '0 0 20px rgba(251,208,0,0.5)';
+        setTimeout(() => {
+          bucket.style.borderColor = '';
+          bucket.style.boxShadow = '';
+        }, 2000);
+      }
+    }
+  }
+
+  if (currentLevel === 'experto') {
+    // Show year for one unplaced console
+    const pool = document.getElementById('expertoPool');
+    const cards = pool.querySelectorAll('.console-card');
+    if (cards.length === 0) return;
+
+    const card = cards[0];
+    const consoleData = ALL_CONSOLES.find(c => c.id === card.dataset.id);
+    if (consoleData) {
+      const yearEl = card.querySelector('.console-year');
+      yearEl.style.display = 'block';
+      yearEl.textContent = consoleData.year;
+      setTimeout(() => { yearEl.style.display = 'none'; }, 3000);
+    }
+  }
+
+  if (currentLevel === 'legendario') {
+    // Highlight one correct answer
+    const selects = document.querySelectorAll('.gen-select');
+    for (const sel of selects) {
+      if (!sel.value) {
+        const consoleData = ALL_CONSOLES.find(c => c.id === sel.dataset.id);
+        if (consoleData) {
+          sel.value = consoleData.gen;
+          sel.style.borderColor = 'var(--mario-yellow)';
+          setTimeout(() => {
+            sel.value = '';
+            sel.style.borderColor = '';
+          }, 2500);
+        }
+        break;
+      }
+    }
+  }
+}
+
+function shuffleConsoles() {
+  if (currentLevel === 'novato') {
+    initNovato();
+  } else if (currentLevel === 'experto') {
+    initExperto();
+  } else if (currentLevel === 'legendario') {
+    initLegendario();
+  }
+}
+</script>
+</body>
+</html>
